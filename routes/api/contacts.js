@@ -7,12 +7,16 @@ const {
 } = require("../../middlewares/validationMiddleware");
 
 const {
-  addGetContact,
-  addGetContactById,
-  addPostContact,
-  addDeleteContact,
-  addUpdateContact,
-} = require("../../controllers/postsControllers");
+  listContacts,
+  removeContact,
+  addContact,
+  updateContact,
+} = require("../../controllers/contacts/index");
+
+const { addGetContact, addGetContactById } = listContacts;
+const { addDeleteContact } = removeContact;
+const { addPostContact } = addContact;
+const { addUpdateContact } = updateContact;
 
 router.get("/", addGetContact);
 
