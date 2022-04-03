@@ -1,15 +1,8 @@
-const fs = require("fs/promises");
-const path = require("path");
-const { v4 } = require("uuid");
-const listContacts = require("./listContacts");
-const contactsPath = path.join(__dirname, "../db/contacts.json");
+const Contact = require("../service/index");
 
-async function addContact(name, email, phone) {
-  const listContact = await listContacts.listContacts();
-  const newContact = { id: v4(), name, email, phone };
-  const newOb = [...listContact, newContact];
-  await fs.writeFile(contactsPath, JSON.stringify(newOb));
-  return newContact;
+async function addContact(name, email, phone, favorite) {
+  const result = await Contact.create({name, email, phone,favorite});
+  return result;
 }
 module.exports = {
   addContact,
