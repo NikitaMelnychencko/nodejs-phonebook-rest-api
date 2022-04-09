@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 module.exports = {
   addPostValidation: (req, res, next) => {
-    const { name, email, phone } = req.body;
+    const { name, email, phone,favorite } = req.body;
     const schema = Joi.object({
       name: Joi.string().alphanum().min(3).max(30).required(),
       email: Joi.string()
@@ -15,11 +15,13 @@ module.exports = {
         .length(10)
         .pattern(/^[0-9]+$/)
         .required(),
+      favorite: Joi.boolean(),
     });
     const validationResult = schema.validate({
       name: name,
       email: email,
       phone: phone,
+      favorite:favorite
     });
     if (validationResult.error) {
       res.status(400).json({
@@ -51,6 +53,23 @@ module.exports = {
         status: "Bad Request",
         code: 400,
         message: `missing field`,
+      });
+    }
+    next();
+  },
+  patchValidation: (req, res, next) => {
+    const { favorite } = req.body;
+    const schema = Joi.object({
+      favorite: Joi.boolean().required(),
+    });
+    const validationResult = schema.validate({
+      favorite: favorite,
+    });
+     if (validationResult.error) {
+      res.status(400).json({
+        status: "Bad Request",
+        code: 400,
+        message: `missing required ${validationResult.error.details[0].context.label} field`,
       });
     }
     next();
