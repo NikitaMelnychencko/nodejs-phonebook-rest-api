@@ -12,24 +12,25 @@ const {
   removeContact,
   addContact,
   updateContact,
-  putchFavoriteFild
+  putchFavoriteFild,
 } = require("../../../controllers/contacts/index");
 
 const { addGetContact, addGetContactById } = listContacts;
 const { addDeleteContact } = removeContact;
 const { addPostContact } = addContact;
 const { addUpdateContact } = updateContact;
+const guard = require("../../../middlewares/guard");
 
-router.get("/", addGetContact);
+router.get("/", guard, addGetContact);
 
-router.get("/:contactId", addGetContactById);
+router.get("/:contactId", guard, addGetContactById);
 
-router.post("/", addPostValidation, addPostContact);
+router.post("/", guard, addPostValidation, addPostContact);
 
-router.delete("/:contactId", addDeleteContact);
+router.delete("/:contactId", guard, addDeleteContact);
 
-router.put("/:contactId", addPutValidation, addUpdateContact);
+router.put("/:contactId", guard, addPutValidation, addUpdateContact);
 
-router.patch("/:contactId/favorite",   patchValidation, putchFavoriteFild);
+router.patch("/:contactId/favorite", guard, patchValidation, putchFavoriteFild);
 
 module.exports = router;
