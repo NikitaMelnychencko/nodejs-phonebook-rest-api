@@ -1,3 +1,4 @@
 const Contact = require("./schemas/task");
-
-module.exports = Contact
+const User = require("./schemas/user");
+const AuthService = require("./auth/index");
+module.exports = {Contact,User,AuthService}

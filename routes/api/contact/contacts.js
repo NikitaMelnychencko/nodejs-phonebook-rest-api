@@ -5,7 +5,7 @@ const {
   addPostValidation,
   addPutValidation,
   patchValidation,
-} = require("../../middlewares/validationMiddleware");
+} = require("../../../middlewares/validationMiddleware");
 
 const {
   listContacts,
@@ -13,7 +13,7 @@ const {
   addContact,
   updateContact,
   putchFavoriteFild
-} = require("../../controllers/contacts/index");
+} = require("../../../controllers/contacts/index");
 
 const { addGetContact, addGetContactById } = listContacts;
 const { addDeleteContact } = removeContact;
