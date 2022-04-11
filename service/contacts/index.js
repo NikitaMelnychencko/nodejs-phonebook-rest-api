@@ -1,4 +1,3 @@
-const SECRET_KEY = process.env.JWT_SECRET_KEY;
 const { CustomError } = require("../../middlewares/error-handler");
 const contactMethod = require("../../models/index");
 const { getContactById, listContacts } = contactMethod.listContacts;
@@ -7,39 +6,51 @@ const { updateContact } = contactMethod.updateContact;
 const { removeContact } = contactMethod.removeContact;
 
 class ContactService {
-  async getAll(query) {
-    return await listContacts(query);
+  async getAll(query, user) {
+    const { limit = 5, page = 0, sortBy, sortByDesc, filter, favorite } = query;
+    let sortCriteria = null;
+    let select = null;
+    if (sortBy) {
+      sortCriteria = { [sortBy]: 1 };
+    }
+    if (sortByDesc) {
+      sortCriteria = { [sortByDesc]: -1 };
+    }
+    if (filter) {
+      select = filter.split("|").join(" ");
+    }
+    return await listContacts({ limit, page, sortCriteria, select, favorite }, user);
   }
 
-  async getById(id) {
-    const getContact = await getContactById(id);
+  async getById(id, user) {
+    const getContact = await getContactById(id, user);
     if (!getContact) {
       throw new CustomError(404, `Contacts ${id} Not found`);
     }
-    return getContact
+    return getContact;
   }
 
-  async create(name, email, phone, favorite) {
-    return await addContact(name, email, phone, favorite)
+  async create(name, email, phone, favorite, user) {
+    return await addContact(name, email, phone, favorite, user);
   }
 
-  async update(id, body) {
-    const upContact = await updateContact(id, body);
+  async update(id, body, user) {
+    const upContact = await updateContact(id, body, user);
     if (!upContact) {
       throw new CustomError(404, `Contacts ${id} Not found`);
     }
   }
 
-  async putchFavorite(id, favorite){
-    const contactFild = await contactMethod.putchFavorite(id, favorite);
+  async putchFavorite(id, favorite, user) {
+    const contactFild = await contactMethod.putchFavorite(id, favorite, user);
     if (!contactFild) {
       throw new CustomError(404, `Contacts ${id} Not found`);
     }
-    return contactFild
+    return contactFild;
   }
 
-  async remove(id) {
-    const updateContact = await removeContact(id);
+  async remove(id, user) {
+    const updateContact = await removeContact(id, user);
     if (!updateContact) {
       throw new CustomError(404, `Contacts ${id} Not found`);
     }

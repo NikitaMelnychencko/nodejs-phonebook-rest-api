@@ -2,7 +2,7 @@ const contactService = require("../../service/contacts");
 const putchFavoriteFild = async (req, res, next) => {
   const { favorite } = req.body;
   const id = req.params.contactId;
-  const contactFild = await contactService.putchFavorite(id, favorite);
+  const contactFild = await contactService.putchFavorite(id, favorite, req.user);
   return res.status(200).json({
     status: "OK",
     code: 200,

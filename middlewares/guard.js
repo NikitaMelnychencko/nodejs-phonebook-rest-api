@@ -29,7 +29,7 @@ const invalidToken =(res)=>{
   return res.status(401).send({
     status: "error",
     code: 401,
-    massage: "Invalid token",
+    massage: "Not authorized",
   });
 }
 module.exports = guard;

@@ -2,7 +2,7 @@ const contactService = require("../../service/contacts");
 
 const addDeleteContact = async (req, res, next) => {
   const id = req.params.contactId;
-  const updateContact = await contactService.remove(id);
+  const updateContact = await contactService.remove(id, req.user);
   
   return res.status(200).json({
     status: "OK",

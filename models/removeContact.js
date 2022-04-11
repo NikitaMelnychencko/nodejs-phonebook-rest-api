@@ -1,8 +1,10 @@
+const { Contact } = require("../service/index");
 
-const {Contact} = require("../service/index");
-
-async function removeContact(contactId) {
-  const delContact = await Contact.findOneAndRemove({_id:contactId});
+async function removeContact(contactId, user) {
+  const delContact = await Contact.findOneAndRemove({
+    _id: contactId,
+    owner: user.id,
+  })
   return delContact;
 }
 

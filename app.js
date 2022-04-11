@@ -11,6 +11,7 @@ const app = express()
 
 const mongoose = require("mongoose");
 
+
 mongoose.connect(URI_DB)
   .then(() => {
     app.listen(PORT)
