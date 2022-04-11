@@ -19,7 +19,6 @@ const guard = async (req, res, next) => {
 const verifyToken = (token) => {
   try {
     const t = jwt.verify(token, SECRET_KEY);
-    console.log(t);
     return !!t;
   } catch (error) {
     return false;

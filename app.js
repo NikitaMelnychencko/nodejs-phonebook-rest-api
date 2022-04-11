@@ -8,6 +8,7 @@ const {URI_DB, PORT=3500} = process.env
 
 const contactsRouter = require('./routes/api/contact/contacts')
 const authRouter = require('./routes/api/auth/index')
+const userRouter = require('./routes/api/user/index')
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.use(cors())
 app.use(express.json({limit: 10000}))
 
 app.use('/api/auth', authRouter)
+app.use('/api/user', userRouter)
 app.use('/api/contacts', contactsRouter)
 
 app.use((req, res) => {

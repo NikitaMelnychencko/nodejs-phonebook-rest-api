@@ -13,7 +13,22 @@ const create = async (body) => {
   return await user.save();
 };
 
-const updateToken = async(id,token)=>{
-  return await User.findByIdAndUpdate(id,{token})
-}
-module.exports={findByID,findByEmail,create,updateToken}
+const updateToken = async (id, token) => {
+  return await User.findByIdAndUpdate(id, { token });
+};
+
+const updateSubscription = async (id, subscription) => {
+  const result = await User.findOneAndUpdate(
+    { owner: id },
+    { subscription },
+    { new: true }
+  );
+  return result;
+};
+module.exports = {
+  findByID,
+  findByEmail,
+  create,
+  updateToken,
+  updateSubscription,
+};

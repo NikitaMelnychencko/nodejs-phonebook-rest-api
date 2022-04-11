@@ -20,7 +20,7 @@ class AuthService {
   async login(email, password) {
     const user = await this.getUser(email, password);
     if (!user) {
-      throw new CustomError(401, "Invalid credentials");
+      throw new CustomError(401, "Invalid Email or password is wrong");
     }
     const token = this.generateToken(user);
     await Users.updateToken(user.id, token);
@@ -29,7 +29,6 @@ class AuthService {
 
   async getUser(email, password) {
     const user = await Users.findByEmail(email);
-    console.log(user);
     if (!user) {
       return null;
     }

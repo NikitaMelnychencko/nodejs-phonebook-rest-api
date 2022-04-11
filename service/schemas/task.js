@@ -20,6 +20,7 @@ const contactSchema = new Schema( {
       ref: 'user',
     }
   });
+  
 contactSchema.plugin(mongoosePaginate);
 
 const Contact = model('contact', contactSchema)

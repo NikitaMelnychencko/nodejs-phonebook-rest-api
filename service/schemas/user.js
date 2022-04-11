@@ -27,6 +27,7 @@ const userSchema = new Schema({
   },
   role: { type: String, enum: Object.values(Role), default: Role.USER },
 });
+
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     const salt = await bcrypt.genSalt(6);
