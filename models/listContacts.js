@@ -6,7 +6,6 @@ const { Contact } = require("../service/index");
 // ) {
 //   const total = await Contact.countDocuments({ owner: user.id });
 //   const data = await Contact.find({ owner: user.id })
-//     .filter(favorite)
 //     .select(select)
 //     .skip(page)
 //     .limit(limit)
@@ -26,10 +25,8 @@ async function listContacts(
     const {docs:contacts,...rest} = await Contact.paginate({ owner: user.id,favorite:favorite },{limit, offset:page, sortCriteria, select})
     return { contacts, ...rest};
   }
-  
-
-  
 }
+
 async function getContactById(contactId, user) {
   const result = await Contact.findOne({
     _id: contactId,
