@@ -20,17 +20,18 @@ const { addDeleteContact } = removeContact;
 const { addPostContact } = addContact;
 const { addUpdateContact } = updateContact;
 const guard = require("../../../middlewares/guard");
+const { wrapper: wrapperError } = require("../../../middlewares/error-handler");
 
 router.get("/", guard, addGetContact);
 
-router.get("/:contactId", guard, addGetContactById);
+router.get("/:contactId", guard, wrapperError(addGetContactById));
 
 router.post("/", guard, addPostValidation, addPostContact);
 
-router.delete("/:contactId", guard, addDeleteContact);
+router.delete("/:contactId", guard, wrapperError(addDeleteContact));
 
-router.put("/:contactId", guard, addPutValidation, addUpdateContact);
+router.put("/:contactId", guard, addPutValidation, wrapperError(addUpdateContact));
 
-router.patch("/:contactId/favorite", guard, patchValidation, putchFavoriteFild);
+router.patch("/:contactId/favorite", guard, patchValidation, wrapperError(putchFavoriteFild));
 
 module.exports = router;

@@ -1,8 +1,7 @@
-const contactMethod = require("../../models/index");
-const { getContactById, listContacts } = contactMethod.listContacts;
+const contactService = require("../../service/contacts");
 
 const addGetContact = async (req, res, next) => {
-  const listContact = await listContacts();
+  const listContact = await contactService.getAll();
 
   res.status(200).json({
     status: "OK",
@@ -14,21 +13,13 @@ const addGetContact = async (req, res, next) => {
 
 const addGetContactById = async (req, res, next) => {
   const id = req.params.contactId;
-  const getContact = await getContactById(id);
-  if (getContact) {
-    res.status(200).json({
-      status: "OK",
-      code: 200,
-      message: `Contacts ${id} find`,
-      data: getContact,
-    });
-  } else {
-    res.status(404).json({
-      status: "Not found",
-      code: 404,
-      message: `Contacts ${id} Not found`,
-    });
-  }
+  const getContact = await contactService.getById(id);
+  return res.status(200).json({
+    status: "OK",
+    code: 200,
+    message: `Contacts ${id} find`,
+    data: getContact,
+  });
 };
 module.exports = {
   addGetContact,

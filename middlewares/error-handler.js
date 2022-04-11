@@ -13,6 +13,7 @@ const wrapper = (fn) => async (req, res, next) => {
     const result = await fn(req, res, next);
     return result;
   } catch (error) {
+
     switch (error.name) {
       case "ValidationError":
         res.status(400).json({
@@ -36,3 +37,4 @@ const wrapper = (fn) => async (req, res, next) => {
 };
 
 module.exports = { CustomError, wrapper };
+
