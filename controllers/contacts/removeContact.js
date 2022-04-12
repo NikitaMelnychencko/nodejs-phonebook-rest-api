@@ -1,22 +1,15 @@
-const { removeContact } = require("../../models/index");
+const contactService = require("../../service/contacts");
 
 const addDeleteContact = async (req, res, next) => {
   const id = req.params.contactId;
-  const updateContact = await removeContact.removeContact(id);
-  if (updateContact) {
-    res.status(200).json({
-      status: "OK",
-      code: 200,
-      message: `Contact ${id} is delete`,
-      data: updateContact,
-    });
-  } else {
-    res.status(404).json({
-      status: "Not Found",
-      code: 404,
-      message: `Not Found`,
-    });
-  }
+  const updateContact = await contactService.remove(id, req.user);
+  
+  return res.status(200).json({
+    status: "OK",
+    code: 200,
+    message: `Contact ${id} is delete`,
+    data: updateContact,
+  });
 };
 
 module.exports = {

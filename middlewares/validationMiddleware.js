@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 module.exports = {
   addPostValidation: (req, res, next) => {
-    const { name, email, phone,favorite } = req.body;
+    const { name, email, phone, favorite } = req.body;
     const schema = Joi.object({
       name: Joi.string().alphanum().min(3).max(30).required(),
       email: Joi.string()
@@ -21,10 +21,10 @@ module.exports = {
       name: name,
       email: email,
       phone: phone,
-      favorite:favorite
+      favorite: favorite,
     });
     if (validationResult.error) {
-      res.status(400).json({
+      return res.status(400).json({
         status: "Bad Request",
         code: 400,
         message: `missing required ${validationResult.error.details[0].context.label} field`,
@@ -49,7 +49,7 @@ module.exports = {
     });
     const validationResult = schema.validate(body);
     if (validationResult.error) {
-      res.status(400).json({
+      return res.status(400).json({
         status: "Bad Request",
         code: 400,
         message: `missing field`,
@@ -65,8 +65,8 @@ module.exports = {
     const validationResult = schema.validate({
       favorite: favorite,
     });
-     if (validationResult.error) {
-      res.status(400).json({
+    if (validationResult.error) {
+      return res.status(400).json({
         status: "Bad Request",
         code: 400,
         message: `missing required ${validationResult.error.details[0].context.label} field`,
@@ -74,4 +74,45 @@ module.exports = {
     }
     next();
   },
+  userValidation: (req, res, next) => {
+    const { email, password } = req.body;
+    const schema = Joi.object({
+      email: Joi.string()
+        .email({
+          minDomainSegments: 2,
+          tlds: { allow: ["com", "net", "co"] },
+        })
+        .required(),
+      password: Joi.string().min(6).required(),
+    });
+    const validationResult = schema.validate({
+      email: email,
+      password: password,
+    });
+    if (validationResult.error) {
+      return res.status(400).json({
+        status: "Bad Request",
+        code: 400,
+        message: `missing required ${validationResult.error.details[0].context.label} field`,
+      });
+    }
+    next();
+  },
+  subscriptionValidation: (req, res, next) => {
+    const { subscription } = req.body;
+    const schema = Joi.object({
+      subscription: Joi.string().required(),
+    });
+    const validationResult = schema.validate({
+      subscription: subscription,
+    });
+    if (validationResult.error) {
+      return res.status(400).json({
+        status: "Bad Request",
+        code: 400,
+        message: `missing required ${validationResult.error.details[0].context.label} field`,
+      });
+    }
+    next();
+  }
 };
