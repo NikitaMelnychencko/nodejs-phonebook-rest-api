@@ -25,6 +25,7 @@ const updateSubscription = async (id, subscription) => {
   );
   return result;
 };
+
 module.exports = {
   findByID,
   findByEmail,

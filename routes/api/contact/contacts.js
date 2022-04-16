@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const {Role} = require('../../../libs/constants')
 const {
   addPostValidation,
   addPutValidation,
@@ -15,14 +15,17 @@ const {
   putchFavoriteFild,
 } = require("../../../controllers/contacts/index");
 
-const { addGetContact, addGetContactById } = listContacts;
+const { addGetContact, addGetContactById, getStatistics } = listContacts;
 const { addDeleteContact } = removeContact;
 const { addPostContact } = addContact;
 const { addUpdateContact } = updateContact;
 const guard = require("../../../middlewares/guard");
+const role = require("../../../middlewares/role");
 const { wrapper: wrapperError } = require("../../../middlewares/error-handler");
 
 router.get("/", guard, addGetContact);
+
+router.get("/statistics", guard, role(Role.ADMIN), wrapperError(getStatistics));
 
 router.get("/:contactId", guard, wrapperError(addGetContactById));
 
