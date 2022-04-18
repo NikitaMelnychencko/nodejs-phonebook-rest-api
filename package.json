@@ -6,7 +6,8 @@
     "start": "cross-env NODE_ENV=production node -r dotenv/config ./server.js",
     "dev": "cross-env NODE_ENV=development nodemon -r dotenv/config ./server.js",
     "lint": "eslint **/*.js",
-    "lint:fix": "eslint --fix **/*.js"
+    "lint:fix": "eslint --fix **/*.js",
+    "test": "cross-env NODE_ENV=test jest --setupFiles=dotenv/config"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -34,6 +35,7 @@
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "5.2.0",
+    "jest": "^27.5.1",
     "nodemon": "2.0.15"
   }
 }
