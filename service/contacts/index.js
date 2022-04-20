@@ -1,6 +1,6 @@
 const { CustomError } = require("../../middlewares/error-handler");
 const contactMethod = require("../../models/index");
-const { getContactById, listContacts } = contactMethod.listContacts;
+const { getContactById, listContacts, getStatistics} = contactMethod.listContacts;
 const { addContact } = contactMethod.addContact;
 const { updateContact } = contactMethod.updateContact;
 const { removeContact } = contactMethod.removeContact;
@@ -19,7 +19,10 @@ class ContactService {
     if (filter) {
       select = filter.split("|").join(" ");
     }
-    return await listContacts({ limit, page, sortCriteria, select, favorite }, user);
+    return await listContacts(
+      { limit, page, sortCriteria, select, favorite },
+      user
+    );
   }
 
   async getById(id, user) {
@@ -30,8 +33,8 @@ class ContactService {
     return getContact;
   }
 
-  async create(name, email, phone, favorite, user) {
-    return await addContact(name, email, phone, favorite, user);
+  async create(name, email, age, phone, favorite, user) {
+    return await addContact(name, email, age, phone, favorite, user);
   }
 
   async update(id, body, user) {
@@ -54,6 +57,11 @@ class ContactService {
     if (!updateContact) {
       throw new CustomError(404, `Contacts ${id} Not found`);
     }
+  }
+
+  async getAgeStatistics(user) {
+    const result = await getStatistics(user)
+    return result
   }
 }
 

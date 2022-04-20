@@ -1,6 +1,8 @@
 const Users = require("../../models/users");
 const { CustomError } = require("../../middlewares/error-handler");
+
 class UserService {
+
   async updateSubscription(id,subscription) {
     if (
       subscription !== "starter" &&

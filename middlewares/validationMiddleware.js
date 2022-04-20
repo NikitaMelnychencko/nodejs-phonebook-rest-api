@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 module.exports = {
   addPostValidation: (req, res, next) => {
-    const { name, email, phone, favorite } = req.body;
+    const { name, email, phone, favorite, age } = req.body;
     const schema = Joi.object({
       name: Joi.string().alphanum().min(3).max(30).required(),
       email: Joi.string()
@@ -16,12 +16,14 @@ module.exports = {
         .pattern(/^[0-9]+$/)
         .required(),
       favorite: Joi.boolean(),
+      age: Joi.number(),
     });
     const validationResult = schema.validate({
       name: name,
       email: email,
       phone: phone,
       favorite: favorite,
+      age: age,
     });
     if (validationResult.error) {
       return res.status(400).json({
@@ -46,6 +48,7 @@ module.exports = {
         .length(10)
         .pattern(/^[0-9]+$/)
         .optional(),
+      age: Joi.number(),
     });
     const validationResult = schema.validate(body);
     if (validationResult.error) {
@@ -114,5 +117,5 @@ module.exports = {
       });
     }
     next();
-  }
+  },
 };

@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const { Role } = require("../../libs/constants");
+const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema({
@@ -26,6 +27,13 @@ const userSchema = new Schema({
     default: null,
   },
   role: { type: String, enum: Object.values(Role), default: Role.USER },
+  avatar: {
+    type: String,
+    default: function () {
+      return gravatar.url(this.email, { s: "250" }, true);
+    },
+  },
+  cloudId: { type: String, default: null },
 });
 
 userSchema.pre("save", async function (next) {
