@@ -5,6 +5,7 @@ const Contact = require('../service/schemas/task')
 const User = require('../service/schemas/user')
 const { newContacts, newUserForCatsTest } = require('./data/data')
 
+
 describe('Test contact controller', () => {
   let user, token
 

@@ -11,4 +11,10 @@ const newUserForCatsTest = {
   password: "123456",
 };
 
-module.exports = { newContacts, newUserForCatsTest };
+const newUserForUserTest = {
+  name: "Sasha",
+  email: "sasha@gmail.com",
+  password: "123456",
+};
+
+module.exports = { newContacts, newUserForCatsTest, newUserForUserTest };

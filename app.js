@@ -5,7 +5,7 @@ const helmet = require("helmet");
 const limiter = require("./libs/limiter");
 let uri;
 
-const { URI_DB, URI_DB_TEST, PORT = 3500 } = process.env;
+const { URI_DB, URI_DB_TEST} = process.env;
 
 if (process.env.NODE_ENV === "test") {
   uri = URI_DB_TEST;
@@ -18,13 +18,11 @@ const authRouter = require("./routes/api/auth/index");
 const userRouter = require("./routes/api/user/index");
 
 const app = express();
-
 const mongoose = require("mongoose");
 
 mongoose
   .connect(uri)
   .then(() => {
-    app.listen(PORT);
     console.log("Database connection successful");
   })
   .catch((error) => {
