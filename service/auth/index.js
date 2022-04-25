@@ -50,6 +50,14 @@ class AuthService {
   async logout(id) {
     await Users.updateToken(id, null);
   }
+  
+  async verifyUser(token){
+    
+  }
+
+  async reverifyEmail(email){
+
+  }
 }
 
 module.exports = new AuthService();

@@ -6,6 +6,8 @@ const {
   registration,
   login,
   logout,
+  verifyUser,
+  reverifyEmail
 } = require("../../../controllers/auth/index");
 const guard = require("../../../middlewares/guard");
 const { wrapper: wrapperError } = require("../../../middlewares/error-handler");
@@ -23,6 +25,9 @@ router.post(
   userValidation,
   wrapperError(login)
 );
-router.post("/logout", guard, wrapperError(logout));
 
+router.get("/verify-email/:token", wrapperError(verifyUser));
+router.post("/verify-email", wrapperError(reverifyEmail));
+
+router.post("/logout", guard, wrapperError(logout));
 module.exports = router;
