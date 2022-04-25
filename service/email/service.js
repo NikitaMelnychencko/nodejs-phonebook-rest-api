@@ -3,7 +3,7 @@ const Mailgen = require("mailgen");
 class EmailService {
   constructor(sender) {
     this.sender=sender
-    this.link = "https://localhost:3000/";
+    this.link = "https://26ce-146-120-225-222.eu.ngrok.io";
     this.mailgen = new Mailgen({
       theme: "default",
       product: {
@@ -19,7 +19,7 @@ class EmailService {
         intro:
           "Welcome to Phone Book! We're very excited to have you on board.",
         action: {
-          instructions: "To get started with Mailgen, please click here:",
+          instructions: "To get started with Phone Book, please click here:",
           button: {
             color: "#22BC66", // Optional action button color
             text: "Confirm your account",
