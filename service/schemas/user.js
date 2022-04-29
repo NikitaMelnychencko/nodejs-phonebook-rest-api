@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 const { Role } = require("../../libs/constants");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
+const { randomUUID } = require("crypto");
 
 const userSchema = new Schema({
   password: {
@@ -34,6 +35,8 @@ const userSchema = new Schema({
     },
   },
   cloudId: { type: String, default: null },
+  isVerify: { type: Boolean, default: false },
+  verifyEmailToken: { type: String, default: randomUUID() },
 });
 
 userSchema.pre("save", async function (next) {
