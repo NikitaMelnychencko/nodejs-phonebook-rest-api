@@ -1,6 +1,7 @@
 const { CustomError } = require("../../middlewares/error-handler");
 const contactMethod = require("../../models/index");
-const { getContactById, listContacts, getStatistics} = contactMethod.listContacts;
+const { getContactById, listContacts, getStatistics } =
+  contactMethod.listContacts;
 const { addContact } = contactMethod.addContact;
 const { updateContact } = contactMethod.updateContact;
 const { removeContact } = contactMethod.removeContact;
@@ -60,8 +61,8 @@ class ContactService {
   }
 
   async getAgeStatistics(user) {
-    const result = await getStatistics(user)
-    return result
+    const result = await getStatistics(user);
+    return result;
   }
 }
 
